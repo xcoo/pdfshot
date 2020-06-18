@@ -1,0 +1,10 @@
+version: '2.2'
+services:
+  pdfshot:
+    image: xcoo/pdfshot:latest
+    init: true
+    network_mode: "host"
+    cap_add:
+      - SYS_ADMIN
+    environment:
+      - PDFSHOT_PORT=8000
