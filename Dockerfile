@@ -1,3 +1,11 @@
+FROM clojure:openjdk-11-lein-buster AS builder
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+    apt-get install -y nodejs
+WORKDIR /build/
+COPY project.clj /build/
+COPY src /build/src/
+RUN lein cljsbuild once
+
 FROM node:12.18.0-alpine
 
 RUN apk update && apk upgrade && \
@@ -35,6 +43,6 @@ RUN addgroup -S pptruser && \
 
 USER pptruser
 
-COPY target/pdfshot.js .
+COPY --from=builder /build/target/pdfshot.js .
 
 ENTRYPOINT ["node", "/app/pdfshot.js"]
