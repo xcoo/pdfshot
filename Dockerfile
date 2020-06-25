@@ -12,6 +12,7 @@ RUN apk update && apk upgrade && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
     apk add \
+      tini \
       chromium@edge \
       libstdc++@edge \
       nss@edge \
@@ -45,4 +46,5 @@ USER pptruser
 
 COPY --from=builder /build/target/pdfshot.js .
 
-ENTRYPOINT ["node", "/app/pdfshot.js"]
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["node", "/app/pdfshot.js"]
