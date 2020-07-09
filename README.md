@@ -1,6 +1,6 @@
 # pdfshot
 
-![build](https://github.com/xcoo/pdfshot/workflows/build/badge.svg)
+[![build](https://github.com/xcoo/pdfshot/workflows/build/badge.svg)](https://github.com/xcoo/pdfshot/actions?query=workflow%3Abuild)
 [![DockerHub](https://img.shields.io/docker/v/xcoo/pdfshot)](https://hub.docker.com/r/xcoo/pdfshot)
 
 PDF screenshot generator for web pages
