@@ -1,7 +1,8 @@
 (ns pdfshot.core
   (:require [cljs.nodejs :as nodejs]
             [cljs.core.async :refer [go]]
-            [cljs.core.async.interop :refer-macros [<p!]]))
+            [cljs.core.async.interop :refer-macros [<p!]]
+            [pdfshot.message :as message]))
 
 (def fs (nodejs/require "fs"))
 (def puppeteer (nodejs/require "puppeteer"))
@@ -30,6 +31,7 @@
                                               #js["--disable-dev-shm-usage"])}))
             page (<p! (.newPage browser))]
         (try
+          (.on page "console" message/print)
           (<p! (.goto page target))
           (when wait-for (<p! (.waitForSelector page wait-for #js{:timeout 60000})))
           (<p! (.pdf page #js{:path temp-path

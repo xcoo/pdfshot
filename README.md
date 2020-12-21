@@ -8,8 +8,8 @@ PDF screenshot generator for web pages
 ## Run pdfshot
 
 ```shell
-$ docker pull xcoo/pdfshot:0.1.0
-$ docker run --rm --cap-add=SYS_ADMIN -e "PDFSHOT_PORT=8000" -p 8000:8000 xcoo/pdfshot:0.1.0
+$ docker pull xcoo/pdfshot:0.1.1
+$ docker run --rm --cap-add=SYS_ADMIN -e "PDFSHOT_PORT=8000" -p 8000:8000 xcoo/pdfshot:0.1.1
 ```
 
 ## Usage
