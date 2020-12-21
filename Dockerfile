@@ -1,12 +1,12 @@
 FROM clojure:openjdk-11-lein-buster AS builder
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs
 WORKDIR /build/
 COPY project.clj /build/
 COPY src /build/src/
 RUN lein cljsbuild once
 
-FROM node:12.18.0-alpine
+FROM node:14.15.3-alpine
 
 RUN apk update && apk upgrade && \
     echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
@@ -33,7 +33,7 @@ RUN apk update && apk upgrade && \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 WORKDIR /app
-RUN npm install puppeteer@3.3.0 express@4.17.1 && \
+RUN npm install puppeteer@5.5.0 express@4.17.1 && \
     mkdir /app/print
 
 RUN addgroup -S pptruser && \

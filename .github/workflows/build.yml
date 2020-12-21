@@ -35,7 +35,7 @@ jobs:
         sudo cp target/pdfshot.js /app
         sudo cp test-resources/test.html /app
         cd /app
-        sudo -E npm install puppeteer@3.3.0 express@4.17.1
+        sudo -E npm install puppeteer@5.5.0 express@4.17.1
         sudo -E node pdfshot.js --no-sandbox &
         cd $GITHUB_WORKSPACE
         sleep 10
