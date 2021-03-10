@@ -33,7 +33,7 @@ RUN apk update && apk upgrade && \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 WORKDIR /app
-RUN npm install puppeteer@5.5.0 express@4.17.1 && \
+RUN npm install puppeteer@6.0.0 express@4.17.1 && \
     mkdir /app/print
 
 RUN addgroup -S pptruser && \
