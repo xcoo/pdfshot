@@ -8,22 +8,22 @@ PDF screenshot generator for web pages
 ## Run pdfshot
 
 ```shell
-$ docker pull xcoo/pdfshot:0.1.1
-$ docker run --rm --cap-add=SYS_ADMIN -e "PDFSHOT_PORT=8000" -p 8000:8000 xcoo/pdfshot:0.1.1
+$ docker pull xcoo/pdfshot:0.1.2
+$ docker run --rm --cap-add=SYS_ADMIN -e "PDFSHOT_PORT=8000" -p 8000:8000 xcoo/pdfshot:0.1.2
 ```
 
 ## Usage
 
 ```shell
-$ curl -fsLJO 'localhost:8000/print.pdf?target=https%3A%2F%2Fwww.google.com&wait_for=%23body'
+$ curl -fsLJO 'localhost:8000/print.pdf?target=https%3A%2F%2Fxcoo.jp&wait_for=%23container'
 ```
 
 - `target` (Required)
   - The URL for which you want to get the screenshot.
-  - `https://www.google.com`
+  - `https://xcoo.jp`
 - `wait_for` (Optional)
   - Wait for the screenshot until the selector you specified appears on the page.
-  - `#body`
+  - `#container`
 
 ## Build Requirements
 

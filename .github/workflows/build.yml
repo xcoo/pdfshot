@@ -22,23 +22,21 @@ jobs:
         PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: true
         PDFSHOT_PORT: 8000
       run: |
-        sudo mkdir -p /usr/share/fonts/TTF/
+        sudo mkdir -p /usr/share/fonts/truetype/
         curl -LO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
         sudo apt install -y ./google-chrome-stable_current_amd64.deb
-        sudo ln -s /usr/bin/google-chrome /usr/bin/chromium-browser
         curl -O https://jaist.dl.osdn.jp/users/8/8634/genshingothic-20150607.7z
         7z x -aoa -ogenshingothic genshingothic-20150607.7z
-        sudo mv genshingothic/*.ttf /usr/share/fonts/TTF/
+        sudo mv genshingothic/*.ttf /usr/share/fonts/truetype/
         rm -rf genshingothic genshingothic-20150607.7z
         sudo fc-cache -fv
         sudo mkdir -p /app/print
         sudo cp target/pdfshot.js /app
-        sudo cp test-resources/test.html /app
         cd /app
-        sudo -E npm install puppeteer@5.5.0 express@4.17.1
+        sudo -E npm install puppeteer@6.0.0 express@4.17.1
         sudo -E node pdfshot.js --no-sandbox &
         cd $GITHUB_WORKSPACE
         sleep 10
-        curl -fsLJO "localhost:$PDFSHOT_PORT/print.pdf?target=file%3A%2F%2F%2Fapp%2Ftest.html&wait_for=%23body"
+        curl -fsLJO "localhost:$PDFSHOT_PORT/print.pdf?target=https%3A%2F%2Fexample.com"
         pgrep node | sudo xargs kill
         [[ "`file print.pdf`" == "print.pdf: PDF document, version 1.4" ]]
