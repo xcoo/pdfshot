@@ -17,7 +17,7 @@
         (.send "An error occurred."))))
 
 (defn- pdf
-  [req res no-sandbox]
+  [req res timeout no-sandbox]
   (let [target (.. req -query -target)
         wait-for (.. req -query -wait_for)
         temp-path (str "print/" (.toString (random-uuid)) ".pdf")
@@ -33,7 +33,7 @@
         (try
           (.on page "console" message/print)
           (<p! (.goto page target))
-          (when wait-for (<p! (.waitForSelector page wait-for #js{:timeout 60000})))
+          (when wait-for (<p! (.waitForSelector page wait-for #js{:timeout timeout})))
           (<p! (.pdf page #js{:path temp-path
                               :format "A4"}))
           (catch js/Error e
@@ -45,9 +45,10 @@
 (defn -main
   [& args]
   (let [port (or (some-> js/process .-env .-PDFSHOT_PORT (js/parseInt 10)) 8000)
+        timeout (or (some-> js/process .-env .-PDFSHOT_TIMEOUT (js/parseInt 10)) 60000)
         no-sandbox (= "--no-sandbox" (first args))]
     (doto (express)
-      (.get "/print.pdf" (fn [req res] (pdf req res no-sandbox)))
+      (.get "/print.pdf" (fn [req res] (pdf req res timeout no-sandbox)))
       (.listen port #(.log js/console (str "Server started on port " port))))))
 
 (set! *main-cli-fn* -main)

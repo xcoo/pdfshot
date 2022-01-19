@@ -1,25 +1,23 @@
 FROM clojure:openjdk-11-lein-buster AS builder
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
     apt-get install -y nodejs
 WORKDIR /build/
 COPY project.clj /build/
 COPY src /build/src/
 RUN lein cljsbuild once
 
-FROM node:14.15.3-alpine
+FROM node:16.13.2-alpine
 
 RUN apk update && apk upgrade && \
-    echo @edge http://nl.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories && \
-    echo @edge http://nl.alpinelinux.org/alpine/edge/main >> /etc/apk/repositories && \
-    apk add \
+    apk add --no-cache \
       tini \
-      chromium@edge \
-      libstdc++@edge \
-      nss@edge \
-      freetype@edge \
-      freetype-dev@edge \
-      harfbuzz@edge \
-      ttf-freefont@edge \
+      chromium \
+      libstdc++ \
+      nss \
+      freetype \
+      freetype-dev \
+      harfbuzz \
+      ttf-freefont \
       curl \
       p7zip && \
     curl -O https://jaist.dl.osdn.jp/users/8/8634/genshingothic-20150607.7z && \
@@ -33,7 +31,7 @@ RUN apk update && apk upgrade && \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 WORKDIR /app
-RUN npm install puppeteer@6.0.0 express@4.17.1 && \
+RUN npm install puppeteer@13.1.1 express@4.17.2 && \
     mkdir /app/print
 
 RUN addgroup -S pptruser && \

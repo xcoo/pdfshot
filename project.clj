@@ -1,11 +1,11 @@
-(defproject pdfshot "0.1.0"
+(defproject pdfshot "0.1.3"
   :description "PDF screenshot generator for web pages"
   :url "https://github.com/xcoo/pdfshot"
   :license {:name "Apache License, Version 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0.html"}
-  :dependencies [[org.clojure/clojure "1.10.1"]
-                 [org.clojure/core.async "1.3.610"]
-                 [org.clojure/clojurescript "1.10.773"]]
+  :dependencies [[org.clojure/clojure "1.10.3"]
+                 [org.clojure/core.async "1.5.648"]
+                 [org.clojure/clojurescript "1.11.4"]]
   :plugins [[lein-cljsbuild "1.1.7"]]
   :cljsbuild {:builds [{:id "dev"
                         :source-paths ["src"]
@@ -13,6 +13,6 @@
                                    :output-to "target/pdfshot.js"
                                    :target :nodejs
                                    :optimizations :simple
-                                   :npm-deps {"puppeteer" "6.0.0"
-                                              "express" "4.16.4"}
+                                   :npm-deps {"puppeteer" "13.1.1"
+                                              "express" "4.17.2"}
                                    :install-deps true}}]})
