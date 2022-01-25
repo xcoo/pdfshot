@@ -6,9 +6,10 @@ COPY project.clj /build/
 COPY src /build/src/
 RUN lein cljsbuild once
 
-FROM node:16.13.2-alpine
+FROM node:16.13.1-alpine3.13
 
-RUN apk update && apk upgrade && \
+RUN apk update && \
+    apk upgrade && \
     apk add --no-cache \
       tini \
       chromium \
