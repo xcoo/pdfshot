@@ -6,7 +6,7 @@ COPY project.clj /build/
 COPY src /build/src/
 RUN lein cljsbuild once
 
-FROM node:16.13.1-alpine3.13
+FROM node:19.3.0-alpine3.16
 
 RUN apk update && \
     apk upgrade && \
