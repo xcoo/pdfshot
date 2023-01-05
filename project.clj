@@ -13,6 +13,6 @@
                                    :output-to "target/pdfshot.js"
                                    :target :nodejs
                                    :optimizations :simple
-                                   :npm-deps {"puppeteer" "13.1.1"
-                                              "express" "4.17.2"}
+                                   :npm-deps {"puppeteer" "19.4.1"
+                                              "express" "4.18.2"}
                                    :install-deps true}}]})
