@@ -39,4 +39,4 @@ jobs:
         sleep 10
         curl -fsLJO "localhost:$PDFSHOT_PORT/print.pdf?target=https%3A%2F%2Fexample.com"
         pgrep node | sudo xargs kill
-        [[ "`file print.pdf`" == "print.pdf: PDF document, version 1.4" ]]
+        [[ "$(file print.pdf)" == "print.pdf: PDF document, version 1.4, 1 pages" ]]
