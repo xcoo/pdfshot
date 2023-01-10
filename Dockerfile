@@ -1,12 +1,12 @@
 FROM clojure:openjdk-11-lein-buster AS builder
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+RUN curl -sL https://deb.nodesource.com/setup_19.x | bash - && \
     apt-get install -y nodejs
 WORKDIR /build/
 COPY project.clj /build/
 COPY src /build/src/
 RUN lein cljsbuild once
 
-FROM node:16.13.1-alpine3.13
+FROM node:19.3.0-alpine3.16
 
 RUN apk update && \
     apk upgrade && \
@@ -32,7 +32,7 @@ RUN apk update && \
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
 WORKDIR /app
-RUN npm install puppeteer@13.1.1 express@4.17.2 && \
+RUN npm install puppeteer@19.4.1 express@4.18.2 && \
     mkdir /app/print
 
 RUN addgroup -S pptruser && \
