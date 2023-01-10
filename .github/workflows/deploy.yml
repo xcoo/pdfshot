@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -25,15 +25,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Get version number
-        id: tag_version
-        run: |
-          DOCKERHUB_TAG=$(echo ${{ github.ref }} | sed -e 's!refs/tags/v!!g')
-          echo "::set-output name=dockerhub_tag::${DOCKERHUB_TAG}"
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: xcoo/pdfshot
+          tags: type=semver,pattern={{version}}
 
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          tags: xcoo/pdfshot:latest,xcoo/pdfshot:${{ steps.tag_version.outputs.dockerhub_tag }}
+          tags: ${{ steps.meta.outputs.tags }}

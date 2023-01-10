@@ -1,4 +1,4 @@
-(defproject pdfshot "0.1.4"
+(defproject pdfshot "0.1.6"
   :description "PDF screenshot generator for web pages"
   :url "https://github.com/xcoo/pdfshot"
   :license {:name "Apache License, Version 2.0"
