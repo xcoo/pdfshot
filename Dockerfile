@@ -6,7 +6,7 @@ COPY project.clj /build/
 COPY src /build/src/
 RUN lein cljsbuild once
 
-FROM node:19.3.0-alpine3.16
+FROM node:19.3.0-alpine3.17
 
 RUN apk update && \
     apk upgrade && \
@@ -23,13 +23,14 @@ RUN apk update && \
       p7zip && \
     curl -O https://jaist.dl.osdn.jp/users/8/8634/genshingothic-20150607.7z && \
     7z x -ogenshingothic genshingothic-20150607.7z && \
+    mkdir /usr/share/fonts/TTF/ && \
     mv genshingothic/*.ttf /usr/share/fonts/TTF/ && \
     rm -rf genshingothic genshingothic-20150607.7z && \
     fc-cache -fv && \
     apk del --purge curl p7zip && \
     rm -rf /var/cache/apk/*
 
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+ENV PUPPETEER_SKIP_DOWNLOAD true
 
 WORKDIR /app
 RUN npm install puppeteer@19.4.1 express@4.18.2 && \
