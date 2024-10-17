@@ -49,6 +49,7 @@
         no-sandbox (= "--no-sandbox" (first args))]
     (doto (express)
       (.get "/print.pdf" (fn [req res] (pdf req res timeout no-sandbox)))
+      (.get "/health" (fn [_req res] (.end (.status res 200))))
       (.listen port #(.log js/console (str "Server started on port " port))))))
 
 (set! *main-cli-fn* -main)
